@@ -1,0 +1,87 @@
+==================================================================================
+================== Authentication Concepts========================================
+=================================================================================
+                       "LogOut", "Complete", "Delete".
+================================================================================
+ For Functional Kind Of Button Like "LogOut", "Complete", "Delete". In these Buttons
+ You will not get any kind of functions attached with it....
+ Button : LogOut, Delete, Complete, Here, When you click on Button then it doesn't
+ open and form for you --- Here You Have Only Function "POST"
+
+ 1. You have to create url inside urls.py.
+ 2. if request.method == 'POST':   # Because This button has only One action to performs
+       logout(request)/ form.save()/ form.delete() # Whatever Action you want
+       return redirect('page')  # page where you want to redirect.
+ 3. Go to Html: In <form action="{% url 'logoutuser' %}" method="POST">
+ 4. Inside this {% csrf_token %}  and <button class="btn btn-danger" type="submit">Log Out</button>
+ 5. Now close your <form>
+
+       Here, you didn't create any html to redirect on 'GET' Condition
+ =======================================================================================
+Example:   <form action="{% url 'logoutuser' %}" method="POST">
+              {% csrf_token %}
+              <div>
+                  <button class="btn btn-danger" type="submit">Log Out</button>
+               </div>
+           </form>
+ ========================================================================================
+
+ =================================================================================
+                       "Login", "CreateToDo", "SignUp".
+================================================================================
+These Kind of buttons you will have two case first to fill form "GET" and To "POST" for Action
+
+1. First You have to same create a urls.py url.
+2. in Case of "GET" You will redirect it to a specific page
+Here you need to create html file ===== In case of GET Method the Load that form....
+After Load That Form there will be a button to perorm action and button attacth with that....
+
+Therefore Here You don't need to show action = url
+        <form method="POST">
+              {% csrf_token %}
+               {{ form.as_p }}
+               <div>
+                   <button class="btn btn-success" type="submit">Sign Up</button>
+               </div>
+        </form>
+
+But if you want to perform any specific action then:
+          <form method="POST" action={% url 'urls' %}>
+
+3. but instead of getting if user will push any POST code like signup the we have to define it into views too
+
+views
+
+def signupuser(request):
+    if request.method == "GET":
+        return render(request, 'memo/signupuser.html',
+                      {'form': UserCreationForm()})  # Someone Visit Web GET 200, And See Form
+    else:
+        # If they Fill form and Submit it Then It will be (POST) method, We add that info into database.
+        if request.POST['password1'] == request.POST['password2']:  # It Checks enter password is write or not
+            try:
+                user = User.objects.create_user(username=request.POST['username'],
+                                                password=request.POST['password1'])  # create user account and password
+                user.save()  # used to save created data into database
+                login(request, user)  # Logged in
+                return redirect('current')
+            except IntegrityError:
+                return render(request, 'memo/signupuser.html', {'form': UserCreationForm(),
+                                                                'user_name_error': 'User Name Already Taken, Try Different One.'})
+        else:
+            return render(request, 'memo/signupuser.html',
+                          {'form': UserCreationForm(), 'error': 'Password Didn\'t Match, Try Again.'})
+
+
+==================================================================================================================
+=====================================LOGIN REQUIRED==============================================================
+It's Prevent to access unauthorize access
+
+from django.contrib.auth.decorators import login_required
+
+then add
+
+@login_required  --- in ahead of functions or page
+
+LOGIN_URL = '/login'
+===============================================================================================================

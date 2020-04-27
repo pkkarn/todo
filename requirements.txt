@@ -1,0 +1,13 @@
+asgiref==3.2.7
+cls==2019.4.13
+Django==3.0.5
+gunicorn==20.0.4
+numpy==1.18.2
+pandas==1.0.3
+Pillow==7.1.1
+public==2019.4.13
+python-dateutil==2.8.1
+pytz==2019.3
+selenium==3.141.0
+sqlparse==0.3.1
+whitenoise==5.0.1

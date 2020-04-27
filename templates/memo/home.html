@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<br><br><br><br><br>
+<div class="row justify-content-center mt-5">
+        <div class="col-md-7 text-center">
+
+                 <h1>Anoni To-Do's</h1>
+            <p>It's a Simple To-Do Web Application designed and developed by <i><strong>PK Karn</strong></i>.
+                I've designed this Web App by using <u>Python - Django</u> Framework.  In <b><i>Anoni Todo's,</i></b>
+                You can note all the works that you want to do. It's a highly secured To-Do App, So don't worry about your data.</p>
+        <a role="button" class="btn btn-primary btn-lg" href="{% url 'current' %}">Start</a>
+        </div>
+    </div>
+{% else %}
+
+<br><br><br><br><br>
+<div class="row justify-content-center mt-5">
+        <div class="col-md-7 text-center">
+
+
+                 <h1>Anoni To-Do's</h1>
+            <p>It's a Simple To-Do Web Application designed and developed by <i><strong>PK Karn</strong></i>.
+                I've designed this Web App by using <u>Python - Django</u> Framework.  In <b><i>Anoni Todo's,</i></b>
+                You can note all the works that you want to do. It's a highly secured To-Do App, So don't worry about your data.</p>
+        <a role="button" class="btn btn-primary btn-lg" href="{% url 'signupuser' %}">Start</a>
+        </div>
+    </div>
+{% endif %}
+
+
+{% endblock %}

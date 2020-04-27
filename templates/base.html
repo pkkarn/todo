@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do App</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+<!------------------------If User Logged In------------------------------------------------------------
+------------------------------------------------------------------------------------>
+<!--All Contents-->
+{% if user.is_authenticated %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div class="container">
+  <a class="navbar-brand" href="{% url 'home' %}">
+         <img class="logo" src="{% static 'anoni.png' %}" />
+        <span>Mr. Todo</span>
+    </a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+          <a href="{% url 'create' %}"><button class="btn btn-warning" type="submit">Create</button></a>&nbsp;
+          <a href="{% url 'current' %}"><button class="btn btn-warning" type="submit">To-Do List</button></a>&nbsp;
+          <a href="{% url 'completetodos' %}"><button class="btn btn-warning" type="submit">Completed</button></a>&nbsp;
+      </div>
+      <!--Button Class-->
+      <div class="navbar-nav mr-auto">
+
+      </div>
+      <div class="navbar-nav ml-auto">
+          <form action="{% url 'logoutuser' %}" method="POST">
+          {% csrf_token %}
+              <div>
+                  <button class="btn btn-danger" type="submit">Log Out</button>
+              </div>
+          </form>
+       </div>
+  </div>
+</div>
+</nav>
+
+{% else %}
+
+<!------------------------If User Logged out------------------------------------------------------------
+------------------------------------------------------------------------------------>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+          <a class="navbar-brand" href="{% url 'home' %}">
+  <img class="logo" src="{% static 'anoni.png' %}" />
+              <span>Mr. Todo</span></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <!--Button Class-->
+
+
+    <div class="navbar-nav ml-auto">
+       <a href="{% url 'loginuser' %}"> <button class="btn btn-warning" type="submit">Login</button></a>
+    </div>&nbsp;&nbsp;
+       <div>
+       <a href="{% url 'signupuser' %}"> <button class="btn btn-primary" type="submit">Sign Up</button></a>
+    </div>
+
+  </div>
+      </div>
+</nav>
+
+
+{% endif %}
+<div class="container">
+    {% block content %}
+<!---It's a Basic Format of Templates----------------------------------------------
+-------------------------------------------------------------------------------
+------------------------------------------------------------------------------------>
+    {% endblock %}
+</div>
+
+</body>
+<footer class="login">
+  <!-- Copyright -->
+  <div class="footer">© 2020 Copyright:
+    <a href="https://mrtodo.herokuapp.com/"> MrToDo.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+</html>

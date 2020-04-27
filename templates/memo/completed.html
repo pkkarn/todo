@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<br>&nbsp;
+{% for todo in todos %}
+
+<ul>
+     <a href="{% url 'viewtodo' todo.id %}">
+        <li class="alert alert-danger">{{ todo.title }} - {{ todo.datecompleted|date:'M j Y H:i' }}</li>
+     </a>
+</ul>
+{% endfor %}
+
+{% else %}
+
+{% endif %}
+<div align="center">
+      <a href="{% url 'current' %}">  <button class="btn btn-danger" type="submit">Current Todo</button> </a>
+</div>
+
+{% endblock %}
