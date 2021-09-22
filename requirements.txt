@@ -1,6 +1,6 @@
 asgiref==3.2.7
 cls==2019.4.13
-Django==3.0.7
+Django==3.1.13
 gunicorn==20.0.4
 numpy==1.18.2
 pandas==1.0.3
